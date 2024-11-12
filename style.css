@@ -24,6 +24,8 @@ body {
   bottom: 4rem;
   right: 4rem;
   color: #ffffff;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
   opacity: 0.7;
   animation: rotate-disc 4s linear infinite;
   transform-origin: center;
@@ -31,6 +33,32 @@ body {
   justify-content: center;
   align-items: center;
   line-height: 0;
+}
+
+/* Positioning the navigation arrows below the carousel items */
+.owl-carousel .owl-nav {
+  position: absolute;
+  bottom: -50px; /* Adjust this value to move the arrows further down */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.owl-carousel .owl-nav button {
+  background: none;
+  border: none;
+  color: #333; /* Change arrow color if needed */
+  font-size: 30px; /* Adjust size */
+  padding: 10px;
+}
+
+.owl-carousel .owl-nav button:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.owl-carousel .owl-nav button:focus {
+  outline: none;
 }
 
 @keyframes rotate-disc {

@@ -1,27 +1,4 @@
 // Import the necessary Firebase functions
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBkA-g2xDMKxIjFAKm0rx7He0USiLI1Noc",
-  authDomain: "web-undangan-42f23.firebaseapp.com",
-  projectId: "web-undangan-42f23",
-  storageBucket: "web-undangan-42f23.appspot.com",
-  messagingSenderId: "17080874518",
-  appId: "1:17080874518:web:2d777ba3f7003e1b432737",
-};
-
-// Initialize Firebase and Firestore
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 // Utility function to calculate relative time
 function timeAgo(date) {
@@ -50,12 +27,11 @@ function timeAgo(date) {
 // Function to save form data with validation
 async function saveFormData(event) {
   event.preventDefault();
-
   const nama = document.getElementById("nama").value.trim();
   const status = document.getElementById("status").value.trim();
   const pesan = document.getElementById("pesan").value.trim();
 
-  // Check if any field is empty
+  // Validation check for empty fields
   if (!nama || !status || !pesan) {
     Swal.fire({
       title: "Warning!",
@@ -67,22 +43,30 @@ async function saveFormData(event) {
   }
 
   try {
-    await addDoc(collection(db, "invitations"), {
-      nama: nama,
-      status: status,
-      pesan: pesan,
-      timestamp: new Date(),
+    const response = await fetch("http://localhost:5000/invitations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nama, status, pesan }),
     });
 
-    Swal.fire({
-      title: "Success!",
-      text: "Data berhasil terkirim.",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
+    const result = await response.json();
+    if (response.ok) {
+      Swal.fire({
+        title: "Success!",
+        text: "Data berhasil terkirim.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
 
-    document.getElementById("formSubmit").reset();
-    fetchData(); // Refresh carousel data
+      document.getElementById("nama").value = "";
+      document.getElementById("status").value = "";
+      document.getElementById("pesan").value = "";
+      fetchData(); // Refresh carousel data
+    } else {
+      throw new Error(result.message);
+    }
   } catch (error) {
     console.error("Error adding document: ", error);
     Swal.fire({
@@ -94,20 +78,20 @@ async function saveFormData(event) {
   }
 }
 
-// Function to fetch and display data from Firestore in Owl Carousel
+// Function to fetch and display data from the API in Owl Carousel
 async function fetchData() {
   const dataCarousel = document.getElementById("dataCarousel");
   dataCarousel.innerHTML = ""; // Clear previous data
 
   try {
-    // Create a query to fetch the data ordered by timestamp in descending order
-    const invitationsQuery = query(
-      collection(db, "invitations"),
-      orderBy("timestamp", "desc")
-    );
+    // Make a GET request to fetch data from your API
+    const response = await fetch("http://localhost:5000/invitations");
 
-    // Execute the query
-    const querySnapshot = await getDocs(invitationsQuery);
+    if (!response.ok) {
+      throw new Error("Failed to fetch invitations.");
+    }
+
+    const invitations = await response.json();
 
     // Check if the carousel is already initialized and destroy it
     if ($(".owl-carousel").data("owl.carousel")) {
@@ -115,37 +99,41 @@ async function fetchData() {
       $(".owl-carousel").html(""); // Clear existing Owl Carousel content
     }
 
-    // Loop through each document and add data to carousel
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const timestamp = data.timestamp.toDate(); // Convert Firebase Timestamp to Date
-      const timeAgoText = timeAgo(timestamp); // Get relative time
+    // Loop through each invitation and add it to the carousel
+    invitations.forEach((invitation) => {
+      const { nama, status, pesan, timestamp } = invitation;
+      const timeAgoText = timeAgo(new Date(timestamp)); // Get relative time
 
-      dataCarousel.innerHTML += `
+      dataCarousel.innerHTML += ` 
         <div class="card p-3 mt-5">
-            <p><strong>${data.nama}</strong> 
+            <p><strong>${nama}</strong> 
               <span> 
                 ${
-                  data.status === "1"
+                  status === "1"
                     ? '<i class="fa-solid fa-square-check text-success fa-xl"></i>'
                     : '<i class="fa-solid fa-square-xmark text-danger fa-xl"></i>'
                 } 
               </span> 
             </p>
-            <p> "${data.pesan}"</p>
+            <p> "${pesan}"</p>
             <p> ${timeAgoText}</p>
         </div>
       `;
     });
 
-    // Reinitialize Owl Carousel after adding new content
+    // Reinitialize Owl Carousel after adding new content with navigation arrows
     $(".owl-carousel").owlCarousel({
       loop: false,
       margin: 30,
       dots: false,
-      autoplay: true,
+      autoplay: false,
       autoplayTimeout: 5000,
       autoplayHoverPause: true,
+      nav: true, // Enable navigation arrows
+      navText: [
+        "<span class='fa fa-chevron-left fa-xl'></span>", // Left arrow
+        "<span class='fa fa-chevron-right fa-xl'></span>", // Right arrow
+      ],
       responsive: {
         0: { items: 1 },
         600: { items: 2 },
@@ -153,7 +141,7 @@ async function fetchData() {
       },
     });
   } catch (error) {
-    console.error("Error fetching documents: ", error);
+    console.error("Error fetching invitations: ", error);
   }
 }
 

@@ -1,87 +1,148 @@
-// Image sources
-const images = [
-  "https://i.pinimg.com/564x/be/f5/1e/bef51eb072f9944553181d078bae17c5.jpg",
-  "https://i.pinimg.com/564x/be/f5/1e/bef51eb072f9944553181d078bae17c5.jpg",
-  "https://i.pinimg.com/564x/be/f5/1e/bef51eb072f9944553181d078bae17c5.jpg",
-  "https://i.pinimg.com/564x/be/f5/1e/bef51eb072f9944553181d078bae17c5.jpg",
-  "https://i.pinimg.com/564x/42/90/33/42903394deb41cd1a526a1c06a82edd0.jpg",
-  "https://i.pinimg.com/564x/91/27/46/912746cbc50756032266eaefcb87a269.jpg",
-  "https://i.pinimg.com/564x/91/27/46/912746cbc50756032266eaefcb87a269.jpg",
-  "https://i.pinimg.com/564x/91/27/46/912746cbc50756032266eaefcb87a269.jpg",
-  // Add other images here...
-];
+let images = []; // Global array to store image URLs
 
-// Generate gallery dynamically
-const gallery = document.getElementById("imgGallery");
+// Fetch images from API and populate the images array
+async function fetchImages() {
+  try {
+    // Clear the gallery and display loading message
+    const gallery = document.getElementById("imgGallery");
+    gallery.innerHTML = ""; // Clear existing content
+    displayLoading(); // Show loading message
 
-if (images.length === 0) {
-  // Display a message if no images are available
+    const response = await fetch("http://localhost:5000/getGallery", {
+      headers: {
+        "Cache-Control": "no-cache", // Prevent caching
+      },
+    });
+
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    const data = await response.json();
+    console.log("Fetched data:", data);
+
+    images.length = 0; // Clear the images array before adding new images
+    data.forEach((item) => {
+      if (item.imageUrl) {
+        images.push(item.imageUrl); // Push the imageUrl to the images array
+      }
+    });
+
+    // Call generateGallery only after images are fetched
+    generateGallery();
+  } catch (error) {
+    console.error("Error fetching images:", error);
+    displayNoImagesMessage();
+  }
+}
+
+// Function to display loading message
+function displayLoading() {
+  const gallery = document.getElementById("imgGallery");
+  const loadingMessage = document.createElement("p");
+  loadingMessage.textContent = "Loading images...";
+  gallery.appendChild(loadingMessage);
+}
+
+// Function to display "No images available" message
+function displayNoImagesMessage() {
+  const gallery = document.getElementById("imgGallery");
   const message = document.createElement("p");
   message.textContent = "No images available";
   message.classList.add("text-center", "mt-3");
   gallery.appendChild(message);
-} else {
-  images.map((imageSrc, index) => {
-    if (imageSrc) {
-      // Only create elements if imageSrc exists
-      const col = document.createElement("div");
-      col.classList.add(
-        "col",
-        "mt-3",
-        "col-home-scroll-up",
-        "gallery-shadow-img",
-        "transition-flip-360",
-        "p-3"
-      );
-
-      const link = document.createElement("a");
-      link.href = "#";
-      link.setAttribute("data-bs-toggle", "modal");
-      link.setAttribute("data-bs-target", "#imageModal");
-      link.setAttribute("data-bs-img-src", imageSrc);
-      link.setAttribute("data-bs-index", index);
-
-      const img = document.createElement("img");
-      img.classList.add("img-thumbnail", "rounded-lg");
-      img.src = imageSrc;
-      img.alt = "";
-
-      link.appendChild(img);
-      col.appendChild(link);
-      gallery.appendChild(col);
-    }
-  });
 }
 
-// Generate gallery dynamically
+// Function to generate gallery dynamically
+function generateGallery() {
+  const gallery = document.getElementById("imgGallery");
+
+  if (!gallery) {
+    console.error("Gallery element not found");
+    return;
+  }
+
+  gallery.innerHTML = ""; // Clear existing gallery content
+
+  if (images.length === 0) {
+    displayNoImagesMessage();
+  } else {
+    images.forEach((imageSrc, index) => {
+      console.log("Generating image:", imageSrc);
+
+      if (imageSrc) {
+        const col = document.createElement("div");
+        col.classList.add(
+          "col",
+          "mt-3",
+          "col-home-scroll-up",
+          "gallery-shadow-img",
+          "transition-flip-360",
+          "p-3"
+        );
+
+        const link = document.createElement("a");
+        link.href = "#";
+        link.setAttribute("data-bs-toggle", "modal");
+        link.setAttribute("data-bs-target", "#imageModal");
+        link.setAttribute("data-bs-img-src", imageSrc);
+        link.setAttribute("data-bs-index", index);
+
+        const img = document.createElement("img");
+        img.classList.add("img-thumbnail", "rounded-lg");
+        img.src = imageSrc;
+        img.alt = "";
+
+        img.onerror = () => {
+          console.error(`Failed to load image: ${imageSrc}`);
+          img.src = "path/to/placeholder-image.jpg"; // Provide a fallback image
+        };
+
+        link.appendChild(img);
+        col.appendChild(link);
+        gallery.appendChild(col);
+      }
+    });
+
+    attachModalEvents(); // Attach event listeners to modal links
+  }
+}
 
 // Modal image update and navigation logic
 let currentIndex = 0; // Track the current image index
 
-// Update modal image when clicked
-const imageLinks = document.querySelectorAll('[data-bs-toggle="modal"]');
-imageLinks.forEach((link) => {
-  link.addEventListener("click", function () {
-    currentIndex = parseInt(this.getAttribute("data-bs-index")); // Get the index of clicked image
-    document.getElementById("modalImage").src = images[currentIndex];
+function attachModalEvents() {
+  const imageLinks = document.querySelectorAll('[data-bs-toggle="modal"]');
+  imageLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      currentIndex = parseInt(this.getAttribute("data-bs-index")); // Get the index of clicked image
+      document.getElementById("modalImage").src = images[currentIndex];
+    });
   });
-});
+}
 
 // Function to show the next image
 function showNextImage() {
-  currentIndex = (currentIndex + 1) % images.length; // Wrap around if we go past the last image
-  document.getElementById("modalImage").src = images[currentIndex];
+  if (images.length > 0) {
+    currentIndex = (currentIndex + 1) % images.length; // Wrap around if we go past the last image
+    document.getElementById("modalImage").src = images[currentIndex];
+  }
 }
 
 // Function to show the previous image
 function showPrevImage() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length; // Wrap around if we go before the first image
-  document.getElementById("modalImage").src = images[currentIndex];
+  if (images.length > 0) {
+    currentIndex = (currentIndex - 1 + images.length) % images.length; // Wrap around if we go before the first image
+    document.getElementById("modalImage").src = images[currentIndex];
+  }
 }
 
 // Event listeners for the next/prev buttons
-document.getElementById("nextBtn").addEventListener("click", showNextImage);
-document.getElementById("prevBtn").addEventListener("click", showPrevImage);
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+if (nextBtn && prevBtn) {
+  nextBtn.addEventListener("click", showNextImage);
+  prevBtn.addEventListener("click", showPrevImage);
+}
 
 // Swipe functionality for mobile
 let startX = 0;
@@ -111,6 +172,11 @@ function handleSwipe(event) {
 
 // Attach swipe events to the modal image
 const modalImage = document.getElementById("modalImage");
-modalImage.addEventListener("touchstart", handleSwipe);
-modalImage.addEventListener("touchmove", handleSwipe);
-modalImage.addEventListener("touchend", handleSwipe);
+if (modalImage) {
+  modalImage.addEventListener("touchstart", handleSwipe);
+  modalImage.addEventListener("touchmove", handleSwipe);
+  modalImage.addEventListener("touchend", handleSwipe);
+}
+
+// Initialize the gallery by fetching images
+fetchImages();
