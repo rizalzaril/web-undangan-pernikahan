@@ -1,0 +1,1183 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Ephesis&family=Share+Tech+Mono&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --pink: #d4af37;
+  --bg: #0a0a0a;
+  --pink-bg: #fff1f7;
+  --shadow: 0 2px 2px rgba(0 0 0 / 0.5);
+}
+
+body {
+  font-size: 1.2rem;
+  font-family: "Work Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #0a0a0a;
+}
+
+.audio-icon-wrapper {
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  font-size: 4rem;
+  bottom: 4rem;
+  right: 4rem;
+  color: #ffffff;
+  opacity: 0.7;
+  animation: rotate-disc 4s linear infinite;
+  transform-origin: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0;
+}
+
+@keyframes rotate-disc {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./img/opening.webp");
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */ /* Adjusts transparency for better readability */
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  font-family: "Ephesis", cursive;
+  font-weight: 500;
+  font-size: 4rem;
+}
+
+/* .heading-title {
+  padding-top: 75px;
+} */
+
+.heading-2-title {
+  font-size: 3rem;
+}
+
+.h1-scroll {
+  opacity: 0; /* Hidden initially */
+  transform: translateX(-1000px); /* Move off-center initially */
+  transition: opacity 0 0.3s ease, transform 0.3s ease;
+}
+
+.h1-scroll-story-1 {
+  opacity: 0; /* Hidden initially */
+  transform: translateX(-1000px); /* Move off-center initially */
+  transition: opacity 0 0.3s ease, transform 0.3s ease;
+}
+
+.cinzel-font {
+  font-family: "Cinzel", serif;
+}
+
+/* CSS */
+.transition-scale-scroll {
+  opacity: 0;
+  transform: scale(0.8); /* Smaller scale for a subtle initial position */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: none;
+}
+
+.h1-scroll-gallery {
+  opacity: 0; /* Hidden initially */
+  transform: translateX(-1000px); /* Move off-center initially */
+  transition: opacity 0 0.3s ease, transform 0.3s ease;
+}
+
+.hero {
+  min-height: 100vh;
+}
+
+.hero h1 {
+  font-family: "Ephesis", cursive;
+  font-weight: 500;
+  font-size: 4rem;
+  transition: ease-in 1s;
+}
+
+.hero h4 {
+  font-size: 1.6;
+  font-weight: 400;
+}
+
+.hero p {
+  font-size: 1.4rem;
+}
+
+.hero h1,
+.hero h4,
+.hero p {
+  text-shadow: var(--shadow);
+}
+
+.hero a {
+  color: var(--pink);
+  background-color: white;
+}
+
+.hero a:hover {
+  background-color: var(--pink);
+  color: white;
+}
+
+.navbar-brand {
+  font-family: "Ephesis", cursive;
+  font-weight: 500;
+  font-size: 3rem;
+}
+
+.offcanvas-header .offcanvas-title {
+  font-family: "Ephesis", cursive;
+  font-weight: 500;
+  font-size: 6rem;
+  text-align: center;
+}
+
+.my-navbar .nav-link {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 7%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  overflow: hidden;
+  width: 80%;
+  background-color: var(--pink);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  box-shadow: var(--shadow);
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.bottom-nav ul {
+  margin: auto;
+  padding: 12px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.bottom-nav ul li {
+  list-style: none;
+}
+
+.bottom-nav ul li a {
+  text-decoration: none;
+}
+
+.card-info {
+  background-color: #ffffff;
+  background-image: url("./img/awan.png");
+  background-size: cover; /* Adjusts image to fully cover the background */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the background image */
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 24px;
+  width: 500px;
+  height: 500px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.card-info::before {
+}
+
+.card-info .card-info-content {
+  width: 350px;
+}
+
+.smooth-wrapper {
+  padding-top: 0px;
+  padding-bottom: 100vh; /* Extra padding to enable scroll */
+}
+
+.text-quotes {
+  padding-top: 200px;
+}
+
+.img-home-up {
+  border-radius: 20px 20px 200px;
+  width: 80%;
+}
+
+.img-home-down {
+  border-radius: 20px 20px 20px 200px;
+  width: 80%;
+}
+
+.col-home-scroll-up {
+  opacity: 0; /* Hidden initially */
+  transform: translateX(-100px); /* Move off-center initially */
+  transition: opacity 0 0.3s ease, transform 0.3s ease;
+}
+
+.col-home-scroll-down {
+  opacity: 0; /* Hidden initially */
+  transform: translateX(100px); /* Move off-center initially */
+  transition: opacity 0 0.3s ease, transform 0.3s ease;
+}
+
+.quotes {
+  min-height: 100vh;
+}
+
+.quotes::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 150%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/alam1.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.pembukaan {
+  min-height: 100vh;
+}
+
+.pembukaan::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/opening.webp");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.bg-img-oval-opening {
+  overflow: hidden;
+  width: 250px; /* Adjust the width to a smaller value */
+  height: 350px; /* Make the height larger than the width */
+}
+
+.oval-img {
+  width: 100%; /* Ensures the image fills the container's width */
+  height: 100%; /* Ensures the image fills the container's height */
+  object-fit: cover; /* Ensures the image maintains its aspect ratio while filling the container */
+  border-radius: 50%; /* Makes the image oval (elongated vertically) */
+  border: solid 0.3rem white;
+}
+
+.img-opening {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  background-position: center;
+}
+
+.info-acara {
+  min-height: 120vh;
+}
+
+.info-acara::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 120%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/harbour.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.mempelai {
+  min-height: 135vh;
+}
+
+.mempelai::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 135%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/river-yellow.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.mempelai .figure-img {
+  width: 50%;
+}
+
+.story {
+  min-height: 125vh;
+}
+.story::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 125%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/river-yellow.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: 0;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.story p {
+  /* color: white; */
+  color: #000;
+}
+
+.timeline {
+  list-style: none;
+  padding: 1.4rem 0;
+  margin-top: 1rem;
+  position: relative;
+  color: #000;
+}
+
+.timeline::before {
+  content: "";
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  width: 1px;
+  background-color: white;
+}
+
+.timeline li {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.timeline li::before,
+.timeline li::after {
+  content: "";
+  display: table;
+}
+
+.timeline li::after {
+  clear: both;
+}
+
+.timeline li .timeline-img {
+  width: 160px;
+  height: 160px;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.timeline li .timeline-panel {
+  width: 40%;
+  float: left;
+  border: 1px solid white;
+  padding: 2rem;
+  position: relative;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.timeline li .timeline-panel::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  border-top: 15px solid transparent;
+  border-left: 15px solid white;
+  border-right: 0 solid white;
+  border-bottom: 15px solid transparent;
+  top: 80px;
+  right: -15px;
+}
+
+.timeline li .timeline-panel::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  border-top: 14px solid transparent;
+  border-left: 14px solid white;
+  border-right: 0 solid white;
+  border-bottom: 14px solid transparent;
+  top: 81px;
+  right: -13px;
+}
+
+.timeline li.timeline-inverted .timeline-panel {
+  float: right;
+}
+
+.timeline li.timeline-inverted .timeline-panel::before {
+  border-left-width: 0;
+  border-right-width: 15px;
+  left: -15px;
+  right: auto;
+}
+
+.timeline li.timeline-inverted .timeline-panel::after {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -13px;
+  right: auto;
+}
+
+.gallery {
+  position: relative;
+  min-height: 180vh;
+  overflow: hidden;
+}
+
+.gallery::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 200%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/opening.webp");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.gallery p {
+  color: white;
+}
+
+.gallery img {
+  transition: transform 0.4s ease, background-color 0.4s ease; /* Smooth transition for transform and background-color */
+  object-fit: cover;
+  width: 100%;
+}
+
+.gallery .img-thumbnail {
+  overflow: hidden;
+  height: 400px;
+  width: 300px;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+.gallery-shadow-img img {
+  box-shadow: 5px 8px 12px -3px rgba(0, 0, 0, 0.65);
+  -webkit-box-shadow: 5px 8px 12px -3px rgba(0, 0, 0, 0.65);
+  -moz-box-shadow: 5px 8px 12px -3px rgba(0, 0, 0, 0.65);
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the area */
+  z-index: -1;
+}
+
+.rsvp {
+  min-height: 200vh;
+}
+
+.rsvp::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 200%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/harbour.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.rsvp form label {
+  color: white;
+}
+
+.rsvp form input {
+  padding: 12px;
+  font-size: 1.3rem;
+}
+
+.rsvp form textarea {
+  padding: 12px;
+  font-size: 1.3rem;
+}
+
+.rsvp form select {
+  padding: 12px;
+  font-size: 1.3rem;
+}
+
+.closing {
+  min-height: 100vh;
+}
+
+.closing::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/opening.webp");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.img-rose-story-up {
+  width: 50%;
+  position: relative;
+  bottom: 200px;
+  float: right;
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: bottom center; /* Anchor the animation to the bottom */
+}
+
+.img-floral-story-up {
+  width: 25%;
+  position: absolute;
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: bottom center; /* Anchor the animation to the bottom */
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(2deg) scale(1.02);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(-2deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.love-story {
+  min-height: 100vh;
+}
+
+.scroll-container {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  width: 100vw;
+  height: 100vh;
+}
+
+.love-story {
+  min-width: 100vw;
+  min-height: 100vh; /* Minimum height ensures it adapts to screen size */
+}
+
+.love-story {
+  flex: 0 0 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  background-color: #333; /* Adjust background as needed */
+}
+
+/* Optional: Smooth scroll for non-GSAP supported browsers */
+.scroll-container {
+  scroll-behavior: smooth;
+}
+
+.love-story-img {
+  width: 30%;
+}
+
+.love-story::before {
+  content: "";
+  position: absolute;
+  top: 1;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    /* Dark gradient overlay */ url("./img/romantic-bg.png");
+
+  background-size: cover; /* Scales image to cover the area */
+  background-position: center; /* Centers the background image */
+  z-index: -1;
+  background-repeat: no-repeat; /* Prevent repeating the image */
+}
+
+.owl-carousel .item {
+  /* Center content within each item */
+  min-width: 300px;
+  padding: 0px 0px;
+  text-align: left;
+}
+
+.owl-carousel {
+  width: 200%; /* Adjust width as needed */
+  margin: 0 auto;
+}
+
+.bank-content {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.bank-logo {
+  width: 10%;
+}
+
+.dana-logo {
+  width: 20%;
+}
+
+.bank-number {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 2rem;
+}
+
+.bank-name {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 500;
+}
+
+/* Responsive Settings */
+
+/* desktop */
+@media (max-width: 1024px) {
+  .bottom-nav {
+    display: none;
+  }
+}
+
+/* Laptop */
+@media (max-width: 992px) {
+  html {
+    font-size: 75%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 70px;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  .img-floral-story-up {
+    width: 30%;
+  }
+
+  .timeline::before {
+    left: 60px;
+  }
+
+  .timeline li .timeline-img {
+    left: 15px;
+    margin-left: 45px;
+    top: 16px;
+  }
+
+  .timeline li .timeline-panel {
+    width: calc((100% - 200px));
+    float: right;
+  }
+
+  .timeline li .timeline-panel::before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+  }
+
+  .timeline li .timeline-panel::after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -13px;
+    right: auto;
+  }
+}
+/* Tablet */
+@media (max-width: 768px) {
+  html {
+    font-size: 65%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 60px;
+    margin: 5px;
+  }
+
+  .my-navbar .nav-link {
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .navbar-brand {
+    font-size: 4rem;
+  }
+
+  .navbar {
+    padding: 0px;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  .bottom-nav ul li a {
+    text-decoration: none;
+    font-size: 2.5rem;
+  }
+
+  /* .info-acara {
+    min-height: 100vh;
+  }
+
+  .info-acara::before {
+    height: 100%;
+  } */
+
+  .gallery img {
+    width: 100%;
+  }
+
+  .gallery .img-thumbnail {
+    overflow: hidden;
+    height: 300px;
+    width: 200px;
+  }
+
+  .owl-carousel {
+    margin-top: 150px;
+  }
+
+  .heading-2-title {
+    font-size: 2.5rem;
+  }
+
+  .text-quotes {
+    padding-top: 100px;
+    width: 300px;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    margin: 0 auto; /* Ensures it centers horizontally if the parent container has space */
+  }
+
+  .img-floral-story-up {
+    width: 40%;
+  }
+
+  .card-info {
+    height: 200px;
+    height: 250px;
+  }
+
+  .card-info .card-info-content {
+    width: 300px;
+  }
+
+  .scroll-container {
+    overflow-x: auto;
+  }
+
+  .love-story {
+    min-height: 100vh; /* Maintains full height */
+    padding: 2em 1em; /* Adds more padding on small screens */
+  }
+
+  .mempelai .img-thumbnail {
+    width: 100%;
+  }
+
+  /* fallback until better support for mask-border */
+  @supports not (-webkit-mask-box-image: var(--_m)) {
+    img {
+      --_m: radial-gradient(at 70% 31%, #000 29%, #0000 30%),
+        radial-gradient(at 30% 31%, #000 29%, #0000 30%),
+        linear-gradient(#000 0 0) bottom/100% 50% no-repeat;
+      -webkit-mask: var(--_m);
+      mask: var(--_m);
+    }
+  }
+
+  .timeline li .timeline-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .bank-content {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .bank-logo {
+    width: 20%;
+  }
+
+  .bank-number {
+    font-size: 2rem;
+  }
+
+  .bank-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .modal-backdrop {
+    position: fixed; /* Ensures it stays in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity for the overlay */
+    z-index: 1040; /* Behind modal content */
+  }
+
+  #imageModal .modal-dialog {
+    width: 90%;
+    max-width: 90%; /* Ensures it doesn't grow too large on very wide screens */
+    margin: 0 auto; /* Centers the modal horizontally */
+  }
+
+  #modalImage {
+    transition: transform 3s ease-in-out; /* Smooth slide effect */
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  html {
+    font-size: 70%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 45px;
+    margin: 3;
+  }
+
+  .img-home-up {
+    border-radius: 20px 20px 200px;
+    width: 100%;
+  }
+
+  .img-home-down {
+    border-radius: 20px 20px 20px 200px;
+    width: 100%;
+  }
+
+  .img-floral-story-up {
+    width: 50%;
+  }
+
+  .img-rose-story-up {
+    width: 50%;
+    position: inline-block;
+    bottom: 220px;
+    float: right;
+    animation: sway 5s ease-in-out infinite;
+    transform-origin: bottom center; /* Anchor the animation to the bottom */
+  }
+
+  .card-info {
+    width: 350px;
+    height: 300px;
+  }
+
+  .card-info .card-info-content {
+    width: 300px;
+  }
+
+  .timeline li .timeline-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .timeline li .timeline-panel {
+    width: 65%;
+    transform: translateX(-10px);
+  }
+
+  .timeline li .timeline-panel::before {
+    top: 30px;
+  }
+
+  .timeline li .timeline-panel::after {
+    top: 31px;
+  }
+
+  /* .pembukaan {
+    min-height: 125vh;
+  }
+
+  .gallery {
+    min-height: 300vh;
+  }
+
+  .gallery::before {
+    height: 100%;
+  } */
+
+  /* .rsvp {
+    min-height: 300vh;
+  }
+
+  .rsvp::before {
+    height: 250%;
+  } */
+}
+
+@media (max-width: 450px) {
+  html {
+    font-size: 65%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 35px;
+    margin: 1;
+  }
+
+  .pembukaan {
+    min-height: 100vh;
+  }
+
+  .pembukaan::before {
+    height: 120%;
+  }
+
+  .bg-img-oval-opening {
+    overflow: hidden;
+    width: 180px; /* Adjust the width to a smaller value */
+    height: 250px; /* Make the height larger than the width */
+  }
+
+  .oval-img {
+    width: 100%; /* Ensures the image fills the container's width */
+    height: 100%; /* Ensures the image fills the container's height */
+    object-fit: cover; /* Ensures the image maintains its aspect ratio while filling the container */
+    border-radius: 50%; /* Makes the image oval (elongated vertically) */
+    border: solid 0.3rem white;
+  }
+
+  /* .mempelai {
+    min-height: 120vh;
+  }
+
+  .mempelai::before {
+    height: 130%;
+  }
+
+  .info-acara {
+    min-height: 120vh;
+  }
+
+  .info-acara::before {
+    height: 150%;
+  }
+
+  .story {
+    min-height: 130vh;
+  }
+
+  .story::before {
+    height: 145%;
+  }
+
+  .card-info {
+    width: 250px;
+  }
+
+  .gallery {
+    min-height: 220vh;
+  }
+
+  .gallery::before {
+    height: 100%;
+  }
+
+  
+
+  .rsvp {
+    min-height: 200vh;
+  }
+
+  .rsvp::before {
+    height: 200%;
+  }
+
+  .closing {
+    min-height: 100vh;
+    margin-top: 300px;
+  }
+
+  .closing::before {
+    height: 100%;
+    margin-top: 200px;
+  } */
+
+  .gallery img {
+    width: 100%;
+  }
+
+  .gallery .img-thumbnail {
+    overflow: hidden;
+    height: 250px;
+    width: 150px;
+  }
+
+  #imageModal .modal-dialog {
+    width: 90%;
+    max-width: 90%; /* Ensures it doesn't grow too large on very wide screens */
+    margin: 0 auto; /* Centers the modal horizontally */
+  }
+
+  #modalImage {
+    transition: transform 3s ease-in-out; /* Smooth slide effect */
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 378px) {
+  html {
+    font-size: 50%;
+  }
+
+  .simply-countdown > .simply-section {
+    padding: 25px;
+    margin: 1;
+  }
+
+  /* .pembukaan {
+    min-height: 100vh;
+  }
+
+  .pembukaan::before {
+    height: 100%;
+  } */
+
+  /* .mempelai {
+    min-height: 120vh;
+  }
+
+  .mempelai::before {
+    height: 130%;
+  }
+
+  .info-acara {
+    min-height: 120vh;
+  }
+
+  .info-acara::before {
+    height: 135%;
+  }
+
+  .story {
+    min-height: 140vh;
+  }
+
+  .story::before {
+    height: 160%;
+  } */
+
+  .card-info {
+    width: 250px;
+  }
+
+  .gallery {
+    min-height: 100vh;
+  }
+
+  .gallery::before {
+    height: 100%;
+  }
+
+  .rsvp {
+    min-height: 200vh;
+  }
+
+  .rsvp::before {
+    height: 200%;
+  }
+
+  .closing {
+    min-height: 100vh;
+    margin-top: 300px;
+  }
+
+  .closing::before {
+    height: 100%;
+    margin-top: 200px;
+  }
+}
