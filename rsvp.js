@@ -88,7 +88,9 @@ async function fetchData() {
 
   try {
     // Make a GET request to fetch data from your API
-    const response = await fetch("http://localhost:5000/invitations");
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/invitations"
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch invitations.");
