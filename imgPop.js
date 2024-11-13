@@ -53,7 +53,6 @@ function displayNoImagesMessage() {
 }
 
 // Function to generate gallery dynamically
-// Function to generate gallery dynamically
 function generateGallery() {
   const gallery = document.getElementById("imgGallery");
 
@@ -67,10 +66,10 @@ function generateGallery() {
   if (images.length === 0) {
     displayNoImagesMessage();
   } else {
-    images.forEach((imageBase64, index) => {
-      console.log("Generating image:", imageBase64);
+    images.forEach((imageSrc, index) => {
+      console.log("Generating image:", imageSrc);
 
-      if (imageBase64) {
+      if (imageSrc) {
         const col = document.createElement("div");
         col.classList.add(
           "col",
@@ -85,17 +84,17 @@ function generateGallery() {
         link.href = "#";
         link.setAttribute("data-bs-toggle", "modal");
         link.setAttribute("data-bs-target", "#imageModal");
-        link.setAttribute("data-bs-img-src", imageBase64); // Use base64 as the source
+        link.setAttribute("data-bs-img-src", imageSrc);
         link.setAttribute("data-bs-index", index);
 
         const img = document.createElement("img");
         img.classList.add("img-thumbnail", "rounded-lg");
-        img.src = `data:image/jpeg;base64,${imageBase64}`; // Display the base64 image
+        img.src = imageSrc;
         img.alt = "";
 
         img.onerror = () => {
-          console.error(`Failed to load image: ${imageBase64}`);
-          img.src = "path/to/placeholder-image.jpg"; // Fallback image
+          console.error(`Failed to load image: ${imageSrc}`);
+          img.src = "path/to/placeholder-image.jpg"; // Provide a fallback image
         };
 
         link.appendChild(img);
