@@ -1,6 +1,6 @@
 let images = []; // Global array to store image URLs
 
-// Fetch images from API and populate the images array
+// Fetch images from the API and populate the images array
 async function fetchImages() {
   try {
     const gallery = document.getElementById("imgGallery");
@@ -22,17 +22,46 @@ async function fetchImages() {
     console.log("Fetched data:", data);
 
     images.length = 0; // Clear the images array before adding new images
-    data.forEach((item) => {
-      if (item.imageBase64) {
-        images.push(item.imageBase64); // Push the base64 string to the images array
-      }
-    });
 
-    generateGallery(); // Generate the gallery after fetching images
+    // Convert each base64 image to PNG
+    for (let item of data) {
+      if (item.imageBase64) {
+        const imageUrl = await convertBase64ToPNG(item.imageBase64);
+        images.push(imageUrl); // Push the PNG-encoded image to the images array
+      }
+    }
+
+    generateGallery(); // Generate the gallery after fetching and converting images
   } catch (error) {
     console.error("Error fetching images:", error);
     displayNoImagesMessage();
   }
+}
+
+// Function to convert Base64 image to PNG format
+function convertBase64ToPNG(base64) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64;
+
+    img.onload = () => {
+      // Create a canvas to convert the image to PNG format
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set canvas dimensions to match the image
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Draw the image onto the canvas
+      ctx.drawImage(img, 0, 0);
+
+      // Get the PNG format data URL
+      const pngDataUrl = canvas.toDataURL("image/png");
+
+      resolve(pngDataUrl); // Return the PNG data URL
+    };
+  });
 }
 
 // Function to display loading message
@@ -89,8 +118,8 @@ function generateGallery() {
 
         const img = document.createElement("img");
         img.classList.add("img-thumbnail", "rounded-lg");
-        img.src = imageSrc; // Use base64 string directly as image source
-        img.alt = "Gallery Image";
+        img.src = imageSrc;
+        img.alt = "";
 
         img.onerror = () => {
           console.error(`Failed to load image: ${imageSrc}`);
