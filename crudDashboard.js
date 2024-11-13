@@ -19,6 +19,14 @@ document
         }
       );
 
+      // Check if the response is a JSON or HTML response
+      const contentType = response.headers.get("Content-Type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        // If it's not JSON, assume it's an error page or non-JSON response
+        throw new Error("Unexpected response format: " + contentType);
+      }
+
       const data = await response.json();
 
       if (response.ok) {
