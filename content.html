@@ -543,6 +543,7 @@
                 </p>
               </article>
             </div>
+            <div class="" id="gallery"></div>
           </div>
         </div>
       </section>
@@ -582,5 +583,26 @@
     <script src="./script.js"></script>
     <script type="module" src="./rsvp.js"></script>
     <script src="./gift.js"></script>
+
+    <!-- <script>
+      // Mengambil data gambar dari endpoint
+      fetch("https://backend-undangan-pernikahan-opang.vercel.app/getGallery")
+        .then((response) => response.json()) // Mengonversi respons menjadi JSON
+        .then((data) => {
+          const gallery = document.getElementById("gallery");
+          // Mengiterasi gambar dari data dan menambahkannya ke halaman
+          data.forEach((image) => {
+            const img = document.createElement("img");
+            img.src = image.imageUrl; // Menyertakan URL gambar
+            img.alt = "Gambar Galeri"; // Deskripsi gambar
+            img.style.width = "300px"; // Ukuran gambar
+            img.style.margin = "10px"; // Margin antar gambar
+            gallery.appendChild(img); // Menambahkan gambar ke gallery
+          });
+        })
+        .catch((error) => {
+          console.error("Terjadi kesalahan:", error);
+        });
+    </script> -->
   </body>
 </html>
