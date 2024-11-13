@@ -4,20 +4,17 @@ document
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("image", document.getElementById("image").files[0]);
+    formData.append("file", document.getElementById("imageUrl").files[0]);
 
     try {
-      const response = await fetch(
-        "https://backend-undangan-pernikahan-opang.vercel.app/uploadGallery",
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            // Add any necessary headers here, like authorization if needed
-            // "Authorization": "Bearer <your-token>"
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/uploadGallery", {
+        method: "POST",
+        body: formData,
+        headers: {
+          // Add any necessary headers here, like authorization if needed
+          // "Authorization": "Bearer <your-token>"
+        },
+      });
 
       // Check if the response is a JSON or HTML response
       const contentType = response.headers.get("Content-Type");

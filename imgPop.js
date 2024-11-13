@@ -1,20 +1,37 @@
-fetch("https://backend-undangan-pernikahan-opang.vercel.app/getGallery")
-  .then((response) => response.json()) // Convert response to JSON
+fetch("http://localhost:5000/getGallery")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then((data) => {
     const gallery = document.getElementById("imgGallery");
+    gallery.innerHTML = "";
 
     // Iterate over the images in the data and add them to the page
     data.forEach((image) => {
+      const col = document.createElement("div");
+      col.classList.add(
+        "col",
+        "mt-3",
+        "col-home-scroll-up",
+        "gallery-shadow-img",
+        "transition-flip-360",
+        "p-3"
+      );
+
       const img = document.createElement("img");
-      img.src = image.imageUrl; // Use the imageUrl directly from the data
-      img.alt = "Gambar Galeri"; // Description of the image
-      img.style.width = "300px"; // Set the image size
-      img.style.margin = "10px"; // Set margin between images
-      gallery.appendChild(img); // Append the image to the gallery
+      img.classList.add("img-thumbnail", "rounded-lg");
+      img.src = image.imageUrl; // Use image.imageUrl to set the image source
+      img.alt = `Image with ID: ${image.id}`; // Optionally set an alt text with the image ID
+
+      col.appendChild(img); // Append the img to the col
+      gallery.appendChild(col); // Append the col to the gallery
     });
   })
   .catch((error) => {
-    console.error("Terjadi kesalahan:", error);
+    console.error("Terjadi kesalahan:", error.message);
   });
 
 // let images = []; // Global array to store image URLs

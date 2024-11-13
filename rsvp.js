@@ -43,16 +43,13 @@ async function saveFormData(event) {
   }
 
   try {
-    const response = await fetch(
-      "https://backend-undangan-pernikahan-opang.vercel.app/invitations",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nama, status, pesan }),
-      }
-    );
+    const response = await fetch("http://localhost:5000/invitations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nama, status, pesan }),
+    });
 
     const result = await response.json();
     if (response.ok) {
@@ -88,9 +85,7 @@ async function fetchData() {
 
   try {
     // Make a GET request to fetch data from your API
-    const response = await fetch(
-      "https://backend-undangan-pernikahan-opang.vercel.app/invitations"
-    );
+    const response = await fetch("http://localhost:5000/invitations");
 
     if (!response.ok) {
       throw new Error("Failed to fetch invitations.");
