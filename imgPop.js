@@ -19,13 +19,18 @@ async function fetchImages() {
     if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
-    console.log("Fetched data:", data); // Log the fetched data
+    console.log("Fetched data:", data); // Log the entire fetched data to verify the structure
 
     images.length = 0; // Clear the images array before adding new images
+
+    // Inspect the structure of data and ensure imageBase64 is the correct key
     data.forEach((item, index) => {
+      console.log(`Item at index ${index}:`, item); // Log each item to verify the structure
       if (item.imageBase64) {
-        console.log(`Image at index ${index}:`, item.imageBase64); // Log each image's base64 data
+        console.log(`Base64 image at index ${index}:`, item.imageBase64); // Log the base64 value
         images.push(item.imageBase64); // Push the base64 string to the images array
+      } else {
+        console.log(`No imageBase64 found at index ${index}`); // Log if the key doesn't exist
       }
     });
 
