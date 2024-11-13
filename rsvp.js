@@ -43,13 +43,16 @@ async function saveFormData(event) {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/invitations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ nama, status, pesan }),
-    });
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/invitations",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nama, status, pesan }),
+      }
+    );
 
     const result = await response.json();
     if (response.ok) {

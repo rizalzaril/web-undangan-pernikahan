@@ -8,11 +8,14 @@ async function fetchImages() {
     gallery.innerHTML = ""; // Clear existing content
     displayLoading(); // Show loading message
 
-    const response = await fetch("http://localhost:5000/getGallery", {
-      headers: {
-        "Cache-Control": "no-cache", // Prevent caching
-      },
-    });
+    const response = await fetch(
+      "https://backend-undangan-pernikahan-opang.vercel.app/getGallery",
+      {
+        headers: {
+          "Cache-Control": "no-cache", // Prevent caching
+        },
+      }
+    );
 
     if (!response.ok) throw new Error("Network response was not ok");
 
