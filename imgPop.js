@@ -1,7 +1,6 @@
 let images = []; // Global array to store image URLs
 
 // Fetch images from API and populate the images array
-// Fetch images from the API and populate the images array
 async function fetchImages() {
   try {
     const gallery = document.getElementById("imgGallery");
@@ -35,6 +34,7 @@ async function fetchImages() {
     displayNoImagesMessage();
   }
 }
+
 // Function to display loading message
 function displayLoading() {
   const gallery = document.getElementById("imgGallery");
@@ -89,8 +89,8 @@ function generateGallery() {
 
         const img = document.createElement("img");
         img.classList.add("img-thumbnail", "rounded-lg");
-        img.src = imageSrc;
-        img.alt = "";
+        img.src = imageSrc; // Use base64 string directly as image source
+        img.alt = "Gallery Image";
 
         img.onerror = () => {
           console.error(`Failed to load image: ${imageSrc}`);
