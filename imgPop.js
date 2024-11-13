@@ -22,8 +22,9 @@ async function fetchImages() {
     console.log("Fetched data:", data); // Log the fetched data
 
     images.length = 0; // Clear the images array before adding new images
-    data.forEach((item) => {
+    data.forEach((item, index) => {
       if (item.imageBase64) {
+        console.log(`Image at index ${index}:`, item.imageBase64); // Log each image's base64 data
         images.push(item.imageBase64); // Push the base64 string to the images array
       }
     });
@@ -65,11 +66,13 @@ function generateGallery() {
 
   gallery.innerHTML = ""; // Clear existing gallery content
 
+  // If images array is empty, show no images message
   if (images.length === 0) {
+    console.log("No images found in the array"); // Log if the images array is empty
     displayNoImagesMessage();
   } else {
+    console.log("Generating gallery with images:", images); // Log when images are being added to the gallery
     images.forEach((imageBase64, index) => {
-      console.log("Rendering image:", imageBase64); // Log each image being rendered
       if (imageBase64) {
         const col = document.createElement("div");
         col.classList.add(
