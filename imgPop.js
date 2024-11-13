@@ -1,9 +1,9 @@
 let images = []; // Global array to store image URLs
 
 // Fetch images from API and populate the images array
+// Fetch images from the API and populate the images array
 async function fetchImages() {
   try {
-    // Clear the gallery and display loading message
     const gallery = document.getElementById("imgGallery");
     gallery.innerHTML = ""; // Clear existing content
     displayLoading(); // Show loading message
@@ -24,19 +24,17 @@ async function fetchImages() {
 
     images.length = 0; // Clear the images array before adding new images
     data.forEach((item) => {
-      if (item.imageUrl) {
-        images.push(item.imageUrl); // Push the imageUrl to the images array
+      if (item.imageBase64) {
+        images.push(item.imageBase64); // Push the base64 string to the images array
       }
     });
 
-    // Call generateGallery only after images are fetched
-    generateGallery();
+    generateGallery(); // Generate the gallery after fetching images
   } catch (error) {
     console.error("Error fetching images:", error);
     displayNoImagesMessage();
   }
 }
-
 // Function to display loading message
 function displayLoading() {
   const gallery = document.getElementById("imgGallery");
@@ -55,6 +53,7 @@ function displayNoImagesMessage() {
 }
 
 // Function to generate gallery dynamically
+// Function to generate gallery dynamically
 function generateGallery() {
   const gallery = document.getElementById("imgGallery");
 
@@ -68,10 +67,10 @@ function generateGallery() {
   if (images.length === 0) {
     displayNoImagesMessage();
   } else {
-    images.forEach((imageSrc, index) => {
-      console.log("Generating image:", imageSrc);
+    images.forEach((imageBase64, index) => {
+      // console.log("Generating image:", imageBase64);
 
-      if (imageSrc) {
+      if (imageBase64) {
         const col = document.createElement("div");
         col.classList.add(
           "col",
@@ -86,17 +85,17 @@ function generateGallery() {
         link.href = "#";
         link.setAttribute("data-bs-toggle", "modal");
         link.setAttribute("data-bs-target", "#imageModal");
-        link.setAttribute("data-bs-img-src", imageSrc);
+        link.setAttribute("data-bs-img-src", imageBase64); // Use base64 as the source
         link.setAttribute("data-bs-index", index);
 
         const img = document.createElement("img");
         img.classList.add("img-thumbnail", "rounded-lg");
-        img.src = imageSrc;
+        img.src = `data:image/jpeg;base64,${imageBase64}`; // Display the base64 image
         img.alt = "";
 
         img.onerror = () => {
-          console.error(`Failed to load image: ${imageSrc}`);
-          img.src = "path/to/placeholder-image.jpg"; // Provide a fallback image
+          console.error(`Failed to load image: ${imageBase64}`);
+          img.src = "path/to/placeholder-image.jpg"; // Fallback image
         };
 
         link.appendChild(img);
