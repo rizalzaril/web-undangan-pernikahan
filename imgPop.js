@@ -1,5 +1,6 @@
 let images = []; // Global array to store image URLs
 
+// Fetch images from API and populate the images array
 // Fetch images from the API and populate the images array
 async function fetchImages() {
   try {
@@ -19,22 +20,14 @@ async function fetchImages() {
     if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
-    console.log("Fetched data:", data); // Log the entire fetched data to verify the structure
+    console.log("Fetched data:", data);
 
     images.length = 0; // Clear the images array before adding new images
-
-    // Inspect the structure of data and ensure imageBase64 is the correct key
-    data.forEach((item, index) => {
-      console.log(`Item at index ${index}:`, item); // Log each item to verify the structure
+    data.forEach((item) => {
       if (item.imageBase64) {
-        console.log(`Base64 image at index ${index}:`, item.imageBase64); // Log the base64 value
         images.push(item.imageBase64); // Push the base64 string to the images array
-      } else {
-        console.log(`No imageBase64 found at index ${index}`); // Log if the key doesn't exist
       }
     });
-
-    console.log("Images array after fetch:", images); // Log the images array to ensure it's populated
 
     generateGallery(); // Generate the gallery after fetching images
   } catch (error) {
@@ -42,7 +35,6 @@ async function fetchImages() {
     displayNoImagesMessage();
   }
 }
-
 // Function to display loading message
 function displayLoading() {
   const gallery = document.getElementById("imgGallery");
@@ -61,6 +53,7 @@ function displayNoImagesMessage() {
 }
 
 // Function to generate gallery dynamically
+// Function to generate gallery dynamically
 function generateGallery() {
   const gallery = document.getElementById("imgGallery");
 
@@ -71,13 +64,12 @@ function generateGallery() {
 
   gallery.innerHTML = ""; // Clear existing gallery content
 
-  // If images array is empty, show no images message
   if (images.length === 0) {
-    console.log("No images found in the array"); // Log if the images array is empty
     displayNoImagesMessage();
   } else {
-    console.log("Generating gallery with images:", images); // Log when images are being added to the gallery
     images.forEach((imageBase64, index) => {
+      console.log("Generating image:", imageBase64);
+
       if (imageBase64) {
         const col = document.createElement("div");
         col.classList.add(
@@ -124,9 +116,7 @@ function attachModalEvents() {
   imageLinks.forEach((link) => {
     link.addEventListener("click", function () {
       currentIndex = parseInt(this.getAttribute("data-bs-index")); // Get the index of clicked image
-      document.getElementById(
-        "modalImage"
-      ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
+      document.getElementById("modalImage").src = images[currentIndex];
     });
   });
 }
@@ -135,9 +125,7 @@ function attachModalEvents() {
 function showNextImage() {
   if (images.length > 0) {
     currentIndex = (currentIndex + 1) % images.length; // Wrap around if we go past the last image
-    document.getElementById(
-      "modalImage"
-    ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
+    document.getElementById("modalImage").src = images[currentIndex];
   }
 }
 
@@ -145,9 +133,7 @@ function showNextImage() {
 function showPrevImage() {
   if (images.length > 0) {
     currentIndex = (currentIndex - 1 + images.length) % images.length; // Wrap around if we go before the first image
-    document.getElementById(
-      "modalImage"
-    ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
+    document.getElementById("modalImage").src = images[currentIndex];
   }
 }
 
