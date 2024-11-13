@@ -1,6 +1,5 @@
 let images = []; // Global array to store image URLs
 
-// Fetch images from API and populate the images array
 // Fetch images from the API and populate the images array
 async function fetchImages() {
   try {
@@ -20,7 +19,7 @@ async function fetchImages() {
     if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
-    console.log("Fetched data:", data);
+    console.log("Fetched data:", data); // Log the fetched data
 
     images.length = 0; // Clear the images array before adding new images
     data.forEach((item) => {
@@ -29,12 +28,15 @@ async function fetchImages() {
       }
     });
 
+    console.log("Images array after fetch:", images); // Log the images array to ensure it's populated
+
     generateGallery(); // Generate the gallery after fetching images
   } catch (error) {
     console.error("Error fetching images:", error);
     displayNoImagesMessage();
   }
 }
+
 // Function to display loading message
 function displayLoading() {
   const gallery = document.getElementById("imgGallery");
@@ -53,7 +55,6 @@ function displayNoImagesMessage() {
 }
 
 // Function to generate gallery dynamically
-// Function to generate gallery dynamically
 function generateGallery() {
   const gallery = document.getElementById("imgGallery");
 
@@ -68,8 +69,7 @@ function generateGallery() {
     displayNoImagesMessage();
   } else {
     images.forEach((imageBase64, index) => {
-      // console.log("Generating image:", imageBase64);
-
+      console.log("Rendering image:", imageBase64); // Log each image being rendered
       if (imageBase64) {
         const col = document.createElement("div");
         col.classList.add(
@@ -116,7 +116,9 @@ function attachModalEvents() {
   imageLinks.forEach((link) => {
     link.addEventListener("click", function () {
       currentIndex = parseInt(this.getAttribute("data-bs-index")); // Get the index of clicked image
-      document.getElementById("modalImage").src = images[currentIndex];
+      document.getElementById(
+        "modalImage"
+      ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
     });
   });
 }
@@ -125,7 +127,9 @@ function attachModalEvents() {
 function showNextImage() {
   if (images.length > 0) {
     currentIndex = (currentIndex + 1) % images.length; // Wrap around if we go past the last image
-    document.getElementById("modalImage").src = images[currentIndex];
+    document.getElementById(
+      "modalImage"
+    ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
   }
 }
 
@@ -133,7 +137,9 @@ function showNextImage() {
 function showPrevImage() {
   if (images.length > 0) {
     currentIndex = (currentIndex - 1 + images.length) % images.length; // Wrap around if we go before the first image
-    document.getElementById("modalImage").src = images[currentIndex];
+    document.getElementById(
+      "modalImage"
+    ).src = `data:image/jpeg;base64,${images[currentIndex]}`; // Set base64 as source
   }
 }
 
